@@ -12,10 +12,10 @@ class event extends \DB\SQL\Mapper
     public static function permalink(string $permalink) : \DB\SQL\Mapper
     {
         $Self = new self();
-        $Events = $Self->load(['evt_permalink = ?', $permalink]);
-        if($Events === false){
+        $Event = $Self->load(['evt_permalink = ?', $permalink]);
+        if($Event === false){
             throw new \Exception('No se ha encontrado el evento!');
         }
-        return $Events;
+        return $Event;
     }
 }
