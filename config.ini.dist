@@ -1,0 +1,11 @@
+[globals]
+DEBUG=0
+TEMP=../tmp/
+AUTOLOAD=../app/
+UI=../gui/
+
+[database]
+server=localhost
+user=root
+password=
+database=editaton
