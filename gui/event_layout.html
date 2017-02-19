@@ -14,7 +14,7 @@
     <div class="ui grid">
         <div class="row">
             <div class="column padding-reset">
-                <div class="ui huge message page grid">
+                <div class="ui huge message page grid banner">
                     <h1 class="ui huge header">{{@event->evt_name}}<br /><div class="ui sub header">{{@event->evt_place}}</div></h1> {{@event->evt_description}}
                 </div>
             </div>
@@ -28,11 +28,11 @@
                 <form class="ui form" action="/event/{{@event->evt_permalink}}/suscribe" method="post">
                     <h4 class="ui dividing header">Datos Personales</h4>
                     <div class="field">
-                        <label>Nombre de pila</label>
-                        <input type="text" name="person[name]" placeholder="Nombre de pila">
+                        <label>Nombre</label>
+                        <input type="text" name="person[name]" placeholder="Nombre">
                     </div>
                     <div class="field">
-                        <label>Sexo</label>
+                        <label>Género</label>
                         <div class="field">
                             <select class="ui fluid dropdown" name="person[sex]">
                                 <option value="1">Femenino</option>
@@ -91,13 +91,15 @@
                             {{@event->getTime()}}
                         </div>
                     </div>
-                    <div class="item">
-                        <i class="info icon"></i>
-                        <div class="content">
-                            <div class="header">Recomendaciones</div>
-                            {{@event->evt_recommendations}}
+                    <check if="{{@event->evt_recommendations}}">
+                        <div class="item">
+                            <i class="info icon"></i>
+                            <div class="content">
+                                <div class="header">Recomendaciones</div>
+                                {{\Markdown::instance()->convert(@event->evt_recommendations)}}
+                            </div>
                         </div>
-                    </div>
+                    </check>
                 </div>
             </div>
         </div>
@@ -111,6 +113,12 @@
     <script>
         $('.ui.checkbox').checkbox();
     </script>
+    <style>
+        .banner {
+            background-image: url(/img/background.jpg)!important;
+        }
+    </style>
+
 </body>
 
 </html>
