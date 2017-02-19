@@ -18,7 +18,7 @@ class inscription extends \DB\SQL\Mapper
         $part = $Participant->load(['part_username = ?', $participant]);
 
         if ($evt === false || $part === false) {
-            throw new \Exception('Error al crear nueva inscripción');
+            throw new \Exception('Error al crear nueva inscripción', 0);
         }
 
         $Inscription = new self();
@@ -28,7 +28,7 @@ class inscription extends \DB\SQL\Mapper
             $Inscription->insc_participant = $part->part_id;
             $Inscription->save();
         } else {
-            throw new \Exception('Ya estás inscrito al evento');
+            throw new \Exception('Ya estás inscrito al evento', 1);
         }
 
         return true;
