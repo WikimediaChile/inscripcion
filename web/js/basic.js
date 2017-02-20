@@ -26,5 +26,17 @@ $(function () {
                 }
             });
     });
+    $('form').on('submit.wiki', function (evt) {
+        evt.preventDefault();
+        if ($('input.id').length === 0) {
+            window.alert('Por favor, chequea el nombre de usuario de Wikipedia');
+            return false;
+        }
+        $('form').off('submit.wiki').submit();
+    });
+    $('form').on('submit', function () {
+        $('form').triggerHandler('submit.wiki');
+    });
+
 
 });
