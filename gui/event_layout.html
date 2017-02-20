@@ -54,7 +54,12 @@
                     <h4 class="ui dividing header">Dato de usuario en Wikipedia</h4>
                     <div class="field">
                         <label>Nombre de usuario</label>
-                        <input type="text" name="person[username]" placeholder="Nombre de usuario en Wikipedia" required="required">
+                        <div class="ui corner labeled input">
+                            <input type="text" name="person[username]" placeholder="Nombre de usuario en Wikipedia" required="required">
+                            <div class="ui corner red label">
+                                <i class="asterisk icon"></i>
+                            </div>
+                        </div>
                         <a class="ui blue pointing label" target="_blank" href="https://es.wikipedia.org/w/index.php?title=Especial:Crear_una_cuenta&returnto=Wikipedia%3APortada">
                             ¿Sin usuario?, créate uno aquí
                         </a>
@@ -64,7 +69,7 @@
                         En los eventos de Wikimedia Chile seguimos la política de <a href="https://wikimediachile.cl/Política:Espacio_Respetuoso">Espacio Respetuoso</a> para que todos los participantes puedan aportar en forma positiva al desarrollo de
                         este evento.<br /> <br/>
                         <div class="ui checkbox">
-                            <label>Leí y seguiré la política de espacio seguro</label>
+                            <label>Leí y seguiré la política de espacio seguro <strong style="color: red">*</strong></label>
                             <input type="checkbox" name="participation[safespace]" value="1" required="required">
                         </div>
                     </div>
