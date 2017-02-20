@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.7/semantic.min.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.7/semantic.min.js"></script>
+    <script src="/js/basic.js"></script>
 </head>
 
 <body>
@@ -55,7 +56,7 @@
                     <div class="field">
                         <label>Nombre de usuario</label>
                         <div class="ui corner labeled input">
-                            <input type="text" name="person[username]" placeholder="Nombre de usuario en Wikipedia" required="required">
+                            <input type="text" name="person[username]" placeholder="Nombre de usuario en Wikipedia" required="required" class="wikiuser">
                             <div class="ui corner red label">
                                 <i class="asterisk icon"></i>
                             </div>
@@ -115,9 +116,6 @@
             </div>
         </div>
     </div>
-    <script>
-        $('.ui.checkbox').checkbox();
-    </script>
     <style>
         .banner {
             background-image: url(/img/background.jpg)!important;
