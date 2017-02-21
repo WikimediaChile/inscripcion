@@ -1,0 +1,11 @@
+<div class="column">
+    <div class="ui large message">
+        <div class="header">
+            Gracias por inscribirte
+        </div>
+        <p>Ya te has inscrito en el evento.</p>
+        <check if="{{@event->evt_website}}">
+            <p>Para seguir más detalles, puedes revisar <a href="{{@event->evt_website}}" target="_blank">la página del encuentro en Wikipedia</a></p>
+        </check>
+    </div>
+</div>

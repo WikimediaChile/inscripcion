@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title> Inscripción {{@event->evt_name}} - Wikimedia Chile</title>
-    <meta name="viewport" content="width=device-width, minimumscale=1.0, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.7/semantic.min.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.7/semantic.min.js"></script>
@@ -24,90 +24,7 @@
     <div class="ui hidden divider"></div>
     <div class="ui page grid">
         <div class="row">
-            <div class="ten wide column">
-                <h2 class="ui header">Formulario de inscripción</h2>
-                <form class="ui form" action="/event/{{@event->evt_permalink}}/suscribe" method="post">
-                    <h4 class="ui dividing header">Datos Personales</h4>
-                    <div class="field">
-                        <label>Nombre</label>
-                        <input type="text" name="person[name]" placeholder="Nombre">
-                    </div>
-                    <div class="field">
-                        <label>Género</label>
-                        <div class="field">
-                            <select class="ui fluid dropdown" name="person[sex]">
-                                <option value="1">Femenino</option>
-                                <option value="2">Masculino</option>
-                                <option value="3">Otro</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>Correo electrónico</label>
-                        <input type="email" name="person[email]" placeholder="Tu correo electrónico">
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox">
-                            <label>Recibir más información de los eventos de Wikimedia Chile</label>
-                            <input type="checkbox" name="person[morenews]" value="1" checked="checked">
-                        </div>
-                    </div>
-                    <h4 class="ui dividing header">Dato de usuario en Wikipedia</h4>
-                    <div class="field">
-                        <label>Nombre de usuario</label>
-                        <div class="ui corner labeled input">
-                            <input type="text" name="person[username]" placeholder="Nombre de usuario en Wikipedia" required="required" class="wikiuser">
-                            <div class="ui corner red label">
-                                <i class="asterisk icon"></i>
-                            </div>
-                        </div>
-                        <a class="ui blue pointing label" target="_blank" href="https://es.wikipedia.org/w/index.php?title=Especial:Crear_una_cuenta&returnto=Wikipedia%3APortada">
-                            ¿Sin usuario?, créate uno aquí
-                        </a>
-                    </div>
-                    <h4 class="ui dividing header">Debes considerar...</h4>
-                    <div class="field">
-                        En los eventos de Wikimedia Chile seguimos la política de <a href="https://wikimediachile.cl/Política:Espacio_Respetuoso">Espacio Respetuoso</a> para que todos los participantes puedan aportar en forma positiva al desarrollo de
-                        este evento.<br /> <br/>
-                        <div class="ui checkbox">
-                            <label>Leí y seguiré la política de espacio seguro <strong style="color: red">*</strong></label>
-                            <input type="checkbox" name="participation[safespace]" value="1" required="required">
-                        </div>
-                    </div>
-                    <button type="submit" class="ui primary button" tabindex="0">Inscribirme</button>
-                    <input type="hidden" name="token" value="{{ @SESSION.csrf }}" />
-                </form>
-            </div>
-            <div class="six wide column">
-                <h2 class="ui header">Dónde y cuándo</h2>
-                <img src="/event/{{@PARAMS.permalink}}/map.jpg" />
-                <br />
-                <div class="ui list">
-                    <div class="item">
-                        <i class="compass icon"></i>
-                        <div class="content">
-                            <div class="header">Lugar</div>
-                            <a href="{{@event->evt_urlmaps}}" target="_blank">{{@event->evt_place}}</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <i class="checked calendar icon"></i>
-                        <div class="content">
-                            <div class="header">Horario</div>
-                            {{@event->getTime()}}
-                        </div>
-                    </div>
-                    <check if="{{@event->evt_recommendations}}">
-                        <div class="item">
-                            <i class="info icon"></i>
-                            <div class="content">
-                                <div class="header">Recomendaciones</div>
-                                {{\Markdown::instance()->convert(@event->evt_recommendations)}}
-                            </div>
-                        </div>
-                    </check>
-                </div>
-            </div>
+            <include href="{{@page.content}}" />
         </div>
         <div class="row">
             <div class="column">

@@ -9,3 +9,11 @@ server=localhost
 user=root
 password=
 database=editaton
+
+[email]
+server=localhost
+user=root
+password=
+scheme=ssl
+port=25
+from=Inscripción Eventos - Wikimedia Chile
