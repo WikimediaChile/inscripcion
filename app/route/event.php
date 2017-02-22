@@ -16,7 +16,7 @@ class event
 
         $fat->set('SESSION.csrf', substr(md5(rand()), 0, 16));
         $fat->set('page.content', 'event.form.html');
-        echo \Template::instance()->render('event_layout.html');
+        echo \Template::instance()->render('layout.event.html');
     }
 
     public function addParticipant(\Base $fat)
@@ -85,6 +85,6 @@ class event
             return $fat;
         }
         $fat->set('page.content', 'event.thanks.html');
-        echo \Template::instance()->render('event_layout.html');
+        echo \Template::instance()->render('layout.event.html');
     }
 }
