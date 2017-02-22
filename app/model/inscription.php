@@ -35,4 +35,16 @@ class inscription extends \DB\SQL\Mapper
 
         return $rand;
     }
+
+    public static function rand(string $rand) : self
+    {
+        $Inscription = new self();
+        $Inscription->load(['insc_rand = ?', $rand]);
+        if($Inscription->dry() === false){
+            return $Inscription;
+        }
+        else{
+            throw new \Exception('No se ha encontrado código de inscripción');
+        }
+    }
 }

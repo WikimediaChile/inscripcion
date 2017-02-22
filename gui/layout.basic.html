@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <title>{{@page.title}}</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.7/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.7/semantic.min.js"></script>
+    <script src="/js/basic.js"></script>
+</head>
+
+<body>
+    <div class="ui grid">
+        <div class="row">
+            <div class="column padding-reset">
+                <div class="ui huge message page grid banner">
+                    <h1 class="ui huge header">{{@page.title}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui hidden divider"></div>
+    <div class="ui page grid">
+        <div class="row">
+            <include href="{{@page.content}}" />
+        </div>
+        <div class="row">
+            <div class="column">
+                <div class="ui divider"></div>
+                <span>Wikimedia Chile</span>
+            </div>
+        </div>
+    </div>
+    <style>
+        .banner {
+            background-image: url(/img/background.jpg)!important;
+        }
+    </style>
+
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+<div class="column">
+    <h2 class="ui header">Solicitar la baja del evento</h2>
+    <form class="ui form" action="/remove" method="get">
+        <h4 class="ui dividing header">Código de confirmación</h4>
+        <div class="field">
+            <label>Código</label>
+            <input type="text" name="code" placeholder="Código" required="required" pattern=".{32}">
+        </div>
+        <button type="submit" class="ui primary button">Eliminar inscripción</button>
+    </form>
+
+</div>
