@@ -13,4 +13,10 @@ $fat->route('GET /@permalink/subscribed', '\route\event->end');
 $fat->route('GET /remove', '\route\inscription->index');
 $fat->route('GET /remove/@rand', '\route\inscription->remove');
 
+$fat->route('GET /log.in', '\route\user->login');
+$fat->route('POST /log.in', '\route\user->process');
+$fat->route('GET /coordination', '\route\coordination->index');
+$fat->route('GET /coordination/@permalink', '\route\coordination->event');
+$fat->route('GET /coordination/@permalink/admin', '\route\coordination->configure');
+
 $fat->run();
