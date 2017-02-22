@@ -17,8 +17,8 @@
             </div>
         </div>
         <div class="field">
-            <label>Correo electrónico</label>
-            <input type="email" name="person[email]" placeholder="Tu correo electrónico">
+            <label>Correo electrónico <a class="ui mini red label">Obligatorio</a></label>
+            <input type="email" name="person[email]" placeholder="Tu correo electrónico" required="required">
         </div>
         <div class="field">
             <div class="ui checkbox">
@@ -28,12 +28,10 @@
         </div>
         <h4 class="ui dividing header">Dato de usuario en Wikipedia</h4>
         <div class="field">
-            <label>Nombre de usuario</label>
-            <div class="ui corner labeled input">
+            <label>Nombre de usuario <a class="ui mini red label">Obligatorio</a></label>
+            <div class="ui icon input">
                 <input type="text" name="person[username]" placeholder="Nombre de usuario en Wikipedia" required="required" class="wikiuser">
-                <div class="ui corner red label">
-                    <i class="asterisk icon"></i>
-                </div>
+                <i class="icon"></i>
             </div>
             <a class="ui blue pointing label" target="_blank" href="https://es.wikipedia.org/w/index.php?title=Especial:Crear_una_cuenta&returnto=Wikipedia%3APortada">
                     ¿Sin usuario?, créate uno aquí

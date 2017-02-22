@@ -5,6 +5,7 @@ $(function () {
     $('.ui.checkbox').checkbox();
     $('.wikiuser').on('change', function () {
         $('input.id').remove();
+        $('.wikiuser').parent('div').addClass('loading').find('.icon').remove('red green checkmark remove');
         $.getJSON('https://es.wikipedia.org/w/api.php?callback=?&action=query&format=json&list=users&usprop=registration%7Cgender&ususers=' + $('.wikiuser').val())
             .done(function (data) {
                 try {
@@ -16,12 +17,15 @@ $(function () {
                         userinfo = data.query.users[0];
                     if (userinfo.hasOwnProperty('missing')) {
                         window.alert('Nombre de usuario no registrado en Wikipedia!');
+                        $('.wikiuser').parent('div').removeClass('loading').find('.icon').addClass('red remove');
                         return;
                     }
                     $input.val(userinfo.userid);
                     $('form').append($input);
+                    $('.wikiuser').parent('div').removeClass('loading').find('.icon').addClass('green checkmark');
                 } catch (e) {
                     window.alert('Error al recuperar el nombre de usuario de Wikipedia!');
+                    $('.wikiuser').parent('div').removeClass('loading').find('.icon').addClass('red remove');
                     return;
                 }
             });
