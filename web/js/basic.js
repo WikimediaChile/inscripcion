@@ -5,7 +5,7 @@ $(function () {
     $('.ui.checkbox').checkbox();
     $('.wikiuser').on('change', function () {
         $('input.id').remove();
-        $('.wikiuser').parent('div').addClass('loading').find('.icon').remove('red green checkmark remove');
+        $('.wikiuser').parent('div').addClass('loading').find('.icon').removeClass('red green checkmark remove');
         $.getJSON('https://es.wikipedia.org/w/api.php?callback=?&action=query&format=json&list=users&usprop=registration%7Cgender&ususers=' + $('.wikiuser').val())
             .done(function (data) {
                 try {
