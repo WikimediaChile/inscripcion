@@ -32,6 +32,6 @@ class inscription
         $Inscription->erase();
         $fat->set('event', $Event);
         $fat->set('page.content', 'inscription.remove.success.html');
-        echo \Template::instance()->render('event_layout.html');
+        echo \Template::instance()->render('layout.event.html');
     }
 }
