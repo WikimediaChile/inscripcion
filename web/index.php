@@ -17,6 +17,7 @@ $fat->route('GET /log.in', '\route\user->login');
 $fat->route('POST /log.in', '\route\user->process');
 $fat->route('GET /coordination', '\route\coordination->index');
 $fat->route('GET /coordination/@permalink', '\route\coordination->event');
-$fat->route('GET /coordination/@permalink/admin', '\route\coordination->configure');
+$fat->route('GET /coordination/@permalink/metrics', '\route\coordination->event_metrics');
+$fat->route('GET /coordination/@permalink/admin', '\route\coordination->event_admin');
 
 $fat->run();

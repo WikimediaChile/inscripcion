@@ -1,0 +1,15 @@
+<div class="ten wide column">
+    <h3>Eventos activos</h3>
+    <div class="ui list">
+        <repeat group="{{@events.current}}" value="{{@event}}">
+            <div class="item">
+                <div class="right floated content">
+                    <a href="/coordination/{{@event->evt_permalink}}" class="ui mini primary button">Ver detalles</a>
+                </div>
+                <div class="header">{{@event->evt_name}}</div>
+                Fechas: <i>{{@event->getTime()}}</i><br /> Inscritos: {{@event->count_inscriptions()}}<br />
+
+            </div>
+        </repeat>
+    </div>
+</div>

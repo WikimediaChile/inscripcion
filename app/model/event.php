@@ -41,4 +41,9 @@ class event extends \DB\SQL\Mapper
 
         return $string;
     }
+
+    public function count_inscriptions() : int
+    {
+        return inscription::inscriptions($this->evt_permalink);
+    }
 }
