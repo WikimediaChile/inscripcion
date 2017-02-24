@@ -7,9 +7,16 @@ class event
     public function render(\Base $fat)
     {
         try {
-            $fat->set('event', \model\event::permalink($fat->get('PARAMS.permalink')));
+            $Event = \model\event::permalink($fat->get('PARAMS.permalink'));
         } catch (\Exception $e) {
             $fat->error(404, $e->getMessage());
+
+            return $fat;
+        }
+        $fat->set('event', $Event);
+        if (\model\inscription::inscriptions($fat->get('PARAMS.permalink')) >= $Event->evt_maxparticipants) {
+            $fat->set('page.content', 'event.nomoreparticipants.html');
+            echo \Template::instance()->render('layout.event.html');
 
             return $fat;
         }
