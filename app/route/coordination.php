@@ -20,6 +20,7 @@ class coordination
         $fat->set('event', $Event);
         $fat->set('page.content', 'coordination.event.details.html');
         echo \Template::instance()->render('coordination.layout.html');
+        $fat->clear('SESSION.error');
     }
 
     public function event_update(\Base $fat)
