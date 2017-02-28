@@ -49,4 +49,9 @@ $(function () {
                 .transition('fade');
         });
 
+    $('.participant').on('change', function () {
+        var $element = $(this).serialize()
+        $.post('/coordination/updateParticipants', $element);
+    })
+
 });

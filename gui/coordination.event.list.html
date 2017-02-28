@@ -9,7 +9,7 @@
     <h2 class="ui header">{{@event->evt_name}}
     <br /><div class="ui sub header">Listado de participantes</div>
     </h2>
-    <form class="ui form" method="post" action="/coordination/{{@PARAMS.permalink}}/update">
+    <form class="ui form" method="post" action="/coordination/{{@PARAMS.permalink}}/updateParticipants">
         <table class="ui celled table">
             <thead>
                 <tr>
@@ -23,7 +23,7 @@
                     <tr>
                         <td>{{@participant->part_name}}</td>
                         <td>{{@participant->part_username}}</td>
-                        <td><input type="checkbox" class="ui checkbox" name="{{@participant->insc_rand}}" {{!!@participant->insc_attend ? 'checked="checked"' : '' }} value="1" /></td>
+                        <td><input type="checkbox" class="ui checkbox participant" name="part[{{@participant->insc_rand}}]" {{!!@participant->insc_attend ? 'checked="checked"' : '' }} value="1" /></td>
                 </repeat>
             </tbody>
         </table>

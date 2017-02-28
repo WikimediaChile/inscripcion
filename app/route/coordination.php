@@ -37,12 +37,28 @@ class coordination
         $fat->reroute('/coordination/'.$fat->get('PARAMS.permalink'));
     }
 
+    public function event_updateParticipants(\Base $fat)
+    {
+        if ($fat->exists('POST.part')) {
+            foreach ($fat->get('POST.part') as $index => $value) {
+                $Inscription = \model\inscription::rand($index);
+                $Inscription->insc_attend = 1;
+                $Inscription->save();
+            }
+            $fat->set('SESSION.error', ['code' => 1, 'message' => 'Participantes actualizados']);
+        }
+        if ($fat->get('AJAX') === false) {
+            $fat->reroute('/coordination/'.$fat->get('PARAMS.permalink').'/list');
+        }
+    }
+
     public function event_list(\Base $fat)
     {
         $fat->set('event', \model\event::permalink($fat->get('PARAMS.permalink')));
         $fat->set('participants', \model\participants::event($fat->get('PARAMS.permalink')));
         $fat->set('page.content', 'coordination.event.list.html');
         echo \Template::instance()->render('coordination.layout.html');
+        $fat->clear('SESSION.error');
     }
 
     public function beforeroute(\Base $fat)
