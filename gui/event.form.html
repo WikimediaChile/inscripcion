@@ -75,7 +75,7 @@
                 <i class="info icon"></i>
                 <div class="content">
                     <div class="header">Recomendaciones</div>
-                    {{\Markdown::instance()->convert(@event->evt_recommendations)}}
+                    {{@event->evt_recommendations | raw}}
                 </div>
             </div>
         </check>
