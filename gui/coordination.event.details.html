@@ -1,0 +1,75 @@
+<div class="ssixteen wide column">
+    <h2 class="ui header">{{@event->evt_name}}
+    <br /><div class="ui sub header">Detalles del evento</div>
+    </h2>
+    <form class="ui form" method="post" action="/coordination/{{@PARAMS.permalink}}/update">
+        <h4 class="ui dividing header">Datos del evento</h4>
+        <div class="two fields">
+            <div class="field">
+                <label>Nombre</label>
+                <input type="text" name="event[name]" placeholder="Nombre" value="{{@event->evt_name}}">
+            </div>
+            <div class="field">
+                <label>Permalink</label>
+                <div class="ui labeled input">
+                    <div class="ui basic label">
+                        {{@SCHEME}}://{{@HOST}}/
+                    </div>
+                    <input type="text" name="event[permalink]" placeholder="Permalink o enlace corto (sin {{@SCHEME}}://{{@HOST}})" value="{{@event->evt_permalink}}">
+                </div>
+            </div>
+        </div>
+        <div class="three fields">
+            <div class="field">
+                <label>Lugar</label>
+                <input type="text" name="event[place]" placeholder="Nombre del lugar" value="{{@event->evt_place}}">
+            </div>
+            <div class="field">
+                <label>Dirección</label>
+                <input type="text" name="event[address]" placeholder="Dirección del lugar" value="{{@event->evt_address}}">
+            </div>
+            <div class="field">
+                <label>URL Google Maps</label>
+                <input type="url" name="event[urlmaps]" placeholder="URL de Google Maps" value="{{@event->evt_urlmaps}}">
+            </div>
+        </div>
+        <div class="field">
+            <label>Sitio web del encuentro</label>
+            <input type="url" name="event[website]" placeholder="Sitio web del encuentro" value="{{@event->evt_website}}">
+        </div>
+        <h4 class="ui dividing header">Fechas</h4>
+        <div class="two fields">
+            <div class="field">
+                <label>Inicio inscripción</label>
+                <input type="datetime-local" name="event[startinscription]" placeholder="Nombre" value="{{@event->evt_startinscription | format_time}}">
+            </div>
+            <div class="field">
+                <label>Fin inscripción</label>
+                <input type="datetime-local" name="event[endinscription]" placeholder="Nombre" value="{{@event->evt_endinscription | format_time}}">
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>Inicio evento</label>
+                <input type="datetime-local" name="event[starttime]" placeholder="Nombre" value="{{@event->evt_starttime | format_time}}">
+            </div>
+            <div class="field">
+                <label>Fin evento</label>
+                <input type="datetime-local" name="event[endtime]" placeholder="Nombre" value="{{@event->evt_endtime | format_time}}">
+            </div>
+        </div>
+        <h4 class="ui dividing header">Otros</h4>
+        <div class="two fields">
+            <div class="field">
+                <label>Recomendaciones</label>
+                <textarea class="markdown">{{@event->evt_recommendations}}</textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<link href="/css/trumbowyg.min.css" rel="stylesheet">
+<script src="/js/trumbowyg.min.js"></script>
+<script>
+    $.trumbowyg.svgPath = '/css/icons.svg';
+    $('.markdown').trumbowyg();
+</script>

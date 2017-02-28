@@ -1,5 +1,5 @@
 <div class="ten wide column">
-    <h3>Eventos activos</h3>
+    <h2 class="ui header">Eventos activos</h2>
     <div class="ui list">
         <repeat group="{{@events.current}}" value="{{@event}}">
             <div class="item">
@@ -7,8 +7,8 @@
                     <a href="/coordination/{{@event->evt_permalink}}" class="ui mini primary button">Ver detalles</a>
                 </div>
                 <div class="header">{{@event->evt_name}}</div>
-                Fechas: <i>{{@event->getTime()}}</i><br /> Inscritos: {{@event->count_inscriptions()}}<br />
-
+                Fechas: <i>{{@event->getTime()}}</i><br /> Inscritos: {{@event->count_inscriptions()}}
+                <check if="{{@event->evt_maxparticipants}}"><small>({{@event->evt_maxparticipants - @event->count_inscriptions()}} lugares disponibles)</small></check>
             </div>
         </repeat>
     </div>

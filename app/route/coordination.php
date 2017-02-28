@@ -13,6 +13,15 @@ class coordination
         echo \Template::instance()->render('coordination.layout.html');
     }
 
+    public function event_details(\Base $fat)
+    {
+        $Event = \model\event::permalink($fat->get('PARAMS.permalink'));
+
+        $fat->set('event', $Event);
+        $fat->set('page.content', 'coordination.event.details.html');
+        echo \Template::instance()->render('coordination.layout.html');
+    }
+
     public function beforeroute(\Base $fat)
     {
         if ($fat->exists('SESSION.token') === false) {
