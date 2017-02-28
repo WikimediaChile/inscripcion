@@ -37,6 +37,14 @@ class coordination
         $fat->reroute('/coordination/'.$fat->get('PARAMS.permalink'));
     }
 
+    public function event_list(\Base $fat)
+    {
+        $fat->set('event', \model\event::permalink($fat->get('PARAMS.permalink')));
+        $fat->set('participants', \model\participants::event($fat->get('PARAMS.permalink')));
+        $fat->set('page.content', 'coordination.event.list.html');
+        echo \Template::instance()->render('coordination.layout.html');
+    }
+
     public function beforeroute(\Base $fat)
     {
         if ($fat->exists('SESSION.token') === false) {

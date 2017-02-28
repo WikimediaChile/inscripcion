@@ -5,6 +5,7 @@
             <div class="item">
                 <div class="right floated content">
                     <a href="/coordination/{{@event->evt_permalink}}" class="ui mini primary button">Ver detalles</a>
+                    <a href="/coordination/{{@event->evt_permalink}}/list" class="ui mini green button">Ver participantes</a>
                 </div>
                 <div class="header">{{@event->evt_name}}</div>
                 Fechas: <i>{{@event->getTime()}}</i><br /> Inscritos: {{@event->count_inscriptions()}}

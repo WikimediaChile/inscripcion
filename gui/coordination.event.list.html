@@ -1,0 +1,38 @@
+<div class="sixteen wide column">
+    <check if="{{@SESSION.error}}">
+        <div class="ui {{!!@SESSION.error.code ? 'green' : 'red'}} message">
+            <div class="header">Actualización de evento</div>
+            <i class="close icon"></i>
+            <p>{{@SESSION.error.message}}</p>
+        </div>
+    </check>
+    <h2 class="ui header">{{@event->evt_name}}
+    <br /><div class="ui sub header">Listado de participantes</div>
+    </h2>
+    <form class="ui form" method="post" action="/coordination/{{@PARAMS.permalink}}/update">
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                    <th>Participa en el evento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <repeat group="{{@participants}}" value="{{@participant}}">
+                    <tr>
+                        <td>{{@participant->part_name}}</td>
+                        <td>{{@participant->part_username}}</td>
+                        <td><input type="checkbox" class="ui checkbox" name="{{@participant->insc_rand}}" {{!!@participant->insc_attend ? 'checked="checked"' : '' }} value="1" /></td>
+                </repeat>
+            </tbody>
+        </table>
+        <button type="submit" class="ui primary button">Guardar</button>
+    </form>
+</div>
+<link href="/css/trumbowyg.min.css" rel="stylesheet">
+<script src="/js/trumbowyg.min.js"></script>
+<script>
+    $.trumbowyg.svgPath = '/css/icons.svg';
+    $('.markdown').trumbowyg();
+</script>
