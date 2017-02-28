@@ -42,7 +42,7 @@ class coordination
         if ($fat->exists('POST.part')) {
             foreach ($fat->get('POST.part') as $index => $value) {
                 $Inscription = \model\inscription::rand($index);
-                $Inscription->insc_attend = 1;
+                $Inscription->insc_attend = $value;
                 $Inscription->save();
             }
             $fat->set('SESSION.error', ['code' => 1, 'message' => 'Participantes actualizados']);

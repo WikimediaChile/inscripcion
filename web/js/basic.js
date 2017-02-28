@@ -50,8 +50,9 @@ $(function () {
         });
 
     $('.participant').on('change', function () {
-        var $element = $(this).serialize()
+        $(this).val(+$(this).is(':checked'));
+        var $element = $(this);
         $.post('/coordination/updateParticipants', $element);
-    })
+    });
 
 });
