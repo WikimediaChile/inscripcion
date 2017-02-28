@@ -22,6 +22,20 @@ class coordination
         echo \Template::instance()->render('coordination.layout.html');
     }
 
+    public function event_update(\Base $fat)
+    {
+        $Event = \model\event::permalink($fat->get('PARAMS.permalink'));
+        $event = [];
+        foreach ($fat->get('POST.event') as $index => $value) {
+            $event['evt_'.$index] = $value;
+        }
+        $Event->copyfrom($event);
+        $Event->save();
+
+        $fat->set('SESSION.error', ['code' => 1, 'message' => 'Evento actualizado']);
+        $fat->reroute('/coordination/'.$fat->get('PARAMS.permalink'));
+    }
+
     public function beforeroute(\Base $fat)
     {
         if ($fat->exists('SESSION.token') === false) {

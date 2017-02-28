@@ -18,6 +18,7 @@ $fat->route('POST /log.in', '\route\user->process');
 $fat->route('GET /coordination', '\route\coordination->index');
 $fat->route('GET /coordination/@permalink', '\route\coordination->event_details');
 $fat->route('GET /coordination/@permalink/metrics', '\route\coordination->event_metrics');
+$fat->route('POST /coordination/@permalink/update', '\route\coordination->event_update');
 $fat->route('GET /coordination/@permalink/admin', '\route\coordination->event_admin');
 
 \Template::instance()->filter('format_time','\formaters::instance()->format_time');

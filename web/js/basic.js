@@ -42,5 +42,11 @@ $(function () {
         $('form#inscription').triggerHandler('submit.wiki');
     });
 
+    $('.message .close')
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
 
 });

@@ -1,4 +1,11 @@
-<div class="ssixteen wide column">
+<div class="sixteen wide column">
+    <check if="{{@SESSION.error}}">
+        <div class="ui {{!!@SESSION.error.code ? 'green' : 'red'}} message">
+            <div class="header">Actualización de evento</div>
+            <i class="close icon"></i>
+            <p>{{@SESSION.error.message}}</p>
+        </div>
+    </check>
     <h2 class="ui header">{{@event->evt_name}}
     <br /><div class="ui sub header">Detalles del evento</div>
     </h2>
@@ -37,6 +44,10 @@
             <label>Sitio web del encuentro</label>
             <input type="url" name="event[website]" placeholder="Sitio web del encuentro" value="{{@event->evt_website}}">
         </div>
+        <div class="field">
+            <label>Máximo de participantes</label>
+            <input type="number" step="1" name="event[maxparticipants]" value="{{@event->evt_maxparticipants}}">
+        </div>
         <h4 class="ui dividing header">Fechas</h4>
         <div class="two fields">
             <div class="field">
@@ -59,12 +70,21 @@
             </div>
         </div>
         <h4 class="ui dividing header">Otros</h4>
+        <div class="field">
+            <label>Recomendaciones</label>
+            <textarea name="event[recommendations]" class="markdown">{{@event->evt_recommendations | raw }}</textarea>
+        </div>
         <div class="two fields">
             <div class="field">
-                <label>Recomendaciones</label>
-                <textarea class="markdown">{{@event->evt_recommendations}}</textarea>
+                <label>Organizadores</label>
+                <input type="text" name="event[organizers]" placeholder="Organizadores del evento (sin incluir Wikimedia Chike)" value="{{@event->evt_organizers }}">
+            </div>
+            <div class="field">
+                <label>Patrocinadores</label>
+                <input type="text" name="event[sponsors]" placeholder="Patrocinadores del evento" value="{{@event->evt_sponsors }}">
             </div>
         </div>
+        <button type="submit" class="ui primary button">Guardar</button>
     </form>
 </div>
 <link href="/css/trumbowyg.min.css" rel="stylesheet">
