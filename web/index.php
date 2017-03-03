@@ -20,6 +20,7 @@ $fat->route('GET /coordination/@permalink', '\route\coordination->event_details'
 $fat->route('GET /coordination/@permalink/metrics', '\route\coordination->event_metrics');
 $fat->route('GET /coordination/@permalink/list', '\route\coordination->event_list');
 $fat->route('POST /coordination/@permalink/updateParticipants', '\route\coordination->event_updateParticipants');
+$fat->route('POST /coordination/@permalink/update', '\route\coordination->event_update');
 $fat->route('POST /coordination/updateParticipants [ajax]', '\route\coordination->event_updateParticipants');
 
 \Template::instance()->filter('format_time','\formaters::instance()->format_time');
