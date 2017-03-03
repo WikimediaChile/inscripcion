@@ -1,3 +1,11 @@
+<div class="ui tiny breadcrumb">
+  <a class="section" href="/coordination">Inicio</a>
+  <i class="right chevron icon divider"></i>
+  <a class="section">{{@event->evt_name}}</a>
+  <i class="right chevron icon divider"></i>
+  <div class="active section">Listado de participantes</div>
+</div>
+<div class="ui section divider"></div>
 <div class="sixteen wide column">
     <check if="{{@SESSION.error}}">
         <div class="ui {{!!@SESSION.error.code ? 'green' : 'red'}} message">

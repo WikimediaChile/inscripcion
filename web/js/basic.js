@@ -49,6 +49,9 @@ $(function () {
                 .transition('fade');
         });
 
+    $('.ui.dropdown')
+        .dropdown();
+
     $('.participant').on('change', function () {
         $(this).val(+$(this).is(':checked'));
         var $element = $(this);
