@@ -23,7 +23,7 @@ class contributions
         $jData = json_decode($data);
         if (isset($jData->query->users)) {
             foreach ($jData->query->users as $user) {
-                $data = ['wu_id' => $user->userid, 'wu_username' => $user->name, 'wu_registration' => \formaters::time_from_wiki($user->registration)
+                $data = ['wu_id' => $user->userid, 'wu_username' => $user->name, 'wu_registration' => is_null($user->registration) ? null : \formaters::time_from_wiki($user->registration)
                 , 'wu_gender' => $user->gender, 'wu_centralid' => $user->centralids->CentralAuth, ];
                 \model\wiki_user::add($data);
             }

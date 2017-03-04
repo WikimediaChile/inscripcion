@@ -26,6 +26,8 @@ $fat->route('POST /coordination/updateParticipants [ajax]', '\route\coordination
 \formaters::registry();
 
 $cron = \Cron::instance();
+$cron->web = true;
+$cron->silent = false;
 $cron->set('contributions', '\contributions->job', '5/* * * * *');
 
 $fat->run();
