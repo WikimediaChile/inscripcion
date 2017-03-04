@@ -45,11 +45,16 @@ class coordination
                 $Inscription->insc_attend = $value;
                 $Inscription->save();
             }
-            $fat->set('SESSION.error', ['code' => 1, 'message' => 'Participantes actualizados']);
+            $message = ['code' => 1, 'message' => 'Participantes actualizados'];
         }
         if ($fat->get('AJAX') === false) {
+            $fat->set('SESSION.error', $message);
             $fat->reroute('/coordination/'.$fat->get('PARAMS.permalink').'/list');
+        } else {
+            echo json_encode($message);
         }
+
+        return $fat;
     }
 
     public function event_list(\Base $fat)
