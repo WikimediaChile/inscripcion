@@ -23,6 +23,11 @@ $fat->route('POST /coordination/@permalink/updateParticipants', '\route\coordina
 $fat->route('POST /coordination/@permalink/update', '\route\coordination->event_update');
 $fat->route('POST /coordination/updateParticipants [ajax]', '\route\coordination->event_updateParticipants');
 
-\Template::instance()->filter('format_time','\formaters::instance()->format_time');
+\formaters::registry();
+
+$cron = \Cron::instance();
+$cron->silent = false;
+$cron->web = true;
+$cron->set('contributions', '\contributions->job', '5/* * * * *');
 
 $fat->run();
