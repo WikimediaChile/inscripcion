@@ -36,7 +36,7 @@ class metrics
         $qList = '
         select con_pagetitle title
             , ifnull((select 1 from contribution con2 where con.con_pageid = con2.con_pageid and con_newpage = 1), 0) as new_page
-	       , sum(con_sizediff) as bytes
+	       , sum(abs(con_sizediff)) as bytes
            , group_concat(distinct wu_username SEPARATOR \',\') as users
            from contribution con, participants, wiki_user
            where part_wikiid = con_userid
