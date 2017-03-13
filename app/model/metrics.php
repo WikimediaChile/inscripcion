@@ -36,17 +36,17 @@ class metrics
     {
         $qList = '
         select con_pagetitle title
-            , ifnull((select 1 from contribution con2 where con.con_pageid = con2.con_pageid and con_newpage = 1 and con_sizediff > 300), 0) as new_page
-	       , sum(abs(con_sizediff)) as bytes
-           , group_concat(distinct wu_username SEPARATOR \',\') as users
-           from contribution con, participants, wiki_user
-           where part_wikiid = con_userid
-           and insc_attend = 1
-           and con_namespace = ifnull(?, con_namespace)
-           and evt_permalink = ?
-           and con_userid = wu_id
-           group by con_pagetitle, new_page, wu_username
-           order by 1';
+            , max(con_newpage) new_page
+            , sum(abs(con_sizediff)) as bytes
+            , group_concat(distinct wu_username SEPARATOR \',\') as users
+        from contribution con, participants, wiki_user
+        where part_wikiid = con_userid
+            and insc_attend = 1
+            and con_namespace = ifnull(?, con_namespace)
+            and evt_permalink = ?
+            and con_userid = wu_id
+        group by con_pagetitle
+        order by 1';
 
         return $this->db->exec($qList, [$ns, $this->permalink]);
     }
