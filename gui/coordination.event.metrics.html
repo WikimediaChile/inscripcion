@@ -68,7 +68,7 @@
 <repeat group="{{@data.list.main_ns}}" value="{{@article}}">
 |-
 | [[{{@article.title}}]]
-| align="center" | {{!@article.new_page ? 'No' : (article.con_sizediff < 300 ? 'Sí*' : Sí)}}
+| align="center" | {{!!@article.new_page ? 'No' : (article.con_sizediff < 300 ? 'Sí*' : 'Sí')}}
 | align="right" | {{@article.bytes}}
 | {{@article.users | format_users }}
 </repeat>
@@ -77,7 +77,5 @@
 ! {{array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos nuevos <br />{{count(@data.list.main_ns) - array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos existentes
 ! align="right" | {{array_sum(array_column(@data.list.main_ns, 'bytes'))}} bytes
 ! &nbsp;
-|}
-
-</textarea>
+|}</textarea>
 </div>
