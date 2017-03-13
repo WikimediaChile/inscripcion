@@ -68,7 +68,7 @@
 <repeat group="{{@data.list.main_ns}}" value="{{@article}}">
 |-
 | [[{{@article.title}}]]
-| align="center" | {{!!@article.new_page ? 'No' : (article.con_sizediff < 300 ? 'Sí*' : 'Sí')}}
+| align="center" | {{!!@article.new_page === false ? 'No' : (@article.con_sizediff < 300 ? 'Sí*' : 'Sí')}}
 | align="right" | {{@article.bytes}}
 | {{@article.users | format_users }}
 </repeat>
