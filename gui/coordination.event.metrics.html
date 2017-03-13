@@ -66,14 +66,13 @@
 ! Bytes añadidos
 <repeat group="{{@data.list.main_ns}}" value="{{@article}}">
 |-
-| {{@article.title}}
-| {{@article.new_page ? 'Sí' : 'No'}}
+| [[{{@article.title}}]]
+| {{@article.new_page ? '{{Sí}}' : '{{No}}'}}
 | {{@article.bytes}}
 </repeat>
 |-
 ! Total
-! {{array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos nuevos <br />
-  {{count(@data.list.main_ns) - array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos existentes
+! {{array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos nuevos <br />{{count(@data.list.main_ns) - array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos existentes
 ! {{array_sum(array_column(@data.list.main_ns, 'bytes'))}} bytes
 |}
 
