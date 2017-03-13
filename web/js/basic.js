@@ -55,7 +55,13 @@ $(function () {
             window.alert('Por favor, chequea el nombre de usuario de Wikipedia');
             return false;
         }
-        $('form.new.participant').off('submit').submit();
+        $.post('./addParticipant', $('form.new.participant').serialize())
+            .done(function (data) {
+                window.alert(data.message);
+                if (data.code === 1) {
+                    window.location.reload();
+                }
+            });
     });
 
     $('.ui.dropdown')

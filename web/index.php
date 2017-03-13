@@ -22,6 +22,7 @@ $fat->route('GET /coordination/@permalink/list', '\route\coordination->event_lis
 $fat->route('POST /coordination/@permalink/updateParticipants', '\route\coordination->event_updateParticipants');
 $fat->route('POST /coordination/@permalink/update', '\route\coordination->event_update');
 $fat->route('POST /coordination/updateParticipants [ajax]', '\route\coordination->event_updateParticipants');
+$fat->route('POST /coordination/@permalink/addParticipant [ajax]', '\route\coordination->event_addParticipant');
 
 \formaters::registry();
 

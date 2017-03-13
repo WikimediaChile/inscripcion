@@ -66,6 +66,22 @@ class coordination
         $fat->clear('SESSION.error');
     }
 
+    public function event_addParticipant(\Base $fat)
+    {
+        header('Content-Type: application/json');
+        try {
+            \model\participant::add($fat->get('POST.person'));
+            \model\inscription::add($fat->get('PARAMS.permalink'), $fat->get('POST.person.username'));
+        } catch (\Exception $e) {
+            echo json_encode(['code' => 0, 'message' => $e->getMessage()]);
+
+            return $fat;
+        }
+        echo json_encode(['code' => 1, 'message' => 'Agregado sin problemas']);
+
+        return $fat;
+    }
+
     public function beforeroute(\Base $fat)
     {
         if ($fat->exists('SESSION.token') === false) {
