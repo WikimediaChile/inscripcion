@@ -11,6 +11,13 @@ class contributions
         return true;
     }
 
+    public function job2(): bool
+    {
+        $this->allContributionsTime();
+
+        return true;
+    }
+
     private function completeUserData() : bool
     {
         $DB = \model\main::instance();
@@ -53,26 +60,32 @@ class contributions
         return true;
     }
 
-    private function retrieveContributions() : bool
+    private function retrieveContributions(string $event) : bool
     {
         $DB = \model\main::instance();
-        $rParticipants = $DB->exec('
-        select part_wikiid from participants par, event evt
-        where par.evt_permalink = evt.evt_permalink
-	       and now() between evt_starttime and evt_endtime');
-
+        if (is_null($event)) {
+            $rParticipants = $DB->exec('
+            select part_wikiid from participants par, event evt
+            where par.evt_permalink = evt.evt_permalink
+	           and now() between evt_starttime and evt_endtime');
+        } else {
+            $rParticipants = $DB->exec('select part_wikiid from participants par
+            where par.evt_permalink = ?', $event);
+            $Data = $DB->exec('SELECT evt_starttime, evt_endtime FROM event where evt_permalink = ?', $event);
+            $Start = date_create_from_format('Y-m-d H:i:s', $Data[0]['evt_starttime'], new \DateTimeZone('America/Santiago'))->setTimezone(new \DateTimeZone('UTC'));
+            $End = date_create_from_format('Y-m-d H:i:s', $Data[0]['evt_endtime'], new \DateTimeZone('America/Santiago'))->setTimezone(new \DateTimeZone('UTC'));
+        }
         if (count($rParticipants) === 0) {
             return false;
         }
 
-        # We took the 30 minutes
-        $start = new \DateTime('now', new \DateTimeZone('UTC'));
-        $end = new \DateTime('-30 minutes', new \DateTimeZone('UTC'));
-        $end->format('Y-m-d\TH:i:s');
+        # Default: We took the 30 minutes
+        $start = is_null($Start) ? new \DateTime('now', new \DateTimeZone('UTC')) : $Start;
+        $end = is_null($End) ? new \DateTime('-30 minutes', new \DateTimeZone('UTC')) : $End;
 
         $url = 'http://es.wikipedia.org/w/api.php?action=query&format=json&list=usercontribs&uclimit=max';
-        $url .= '&ucstart='.$start->format('Y-m-d\TH:i:s.000\Z');
-        $url .= '&ucend='.$end->format('Y-m-d\TH:i:s.000\Z');
+        $url .= '&ucend='.$start->format('Y-m-d\TH:i:s.000\Z');
+        $url .= '&ucstart   ='.$end->format('Y-m-d\TH:i:s.000\Z');
         $url .= '&ucnamespace=0%7C2%7C4%7C102%7C100%7C104&ucprop=ids%7Ctitle%7Ctimestamp%7Csize%7Csizediff';
         $url .= '&ucuserids='.$participants = implode('|', array_column($rParticipants, 'part_wikiid'));
 
@@ -95,6 +108,13 @@ class contributions
             }
             $uccontinue = $jData->continue->uccontinue;
         }
+
+        return true;
+    }
+
+    private function allContributionsTime() : bool
+    {
+        $this->retrieveContributions('mujer-2017');
 
         return true;
     }
