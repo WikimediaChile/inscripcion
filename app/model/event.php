@@ -42,6 +42,21 @@ class event extends \DB\SQL\Mapper
         return $string;
     }
 
+    public function isInscription() : array
+    {
+        $Start = date_create($this->evt_startinscription);
+        $End = date_create($this->evt_endinscription);
+        $Now = new \DateTime('now');
+        if (!!date_diff($Start, $Now)->invert === true) {
+            return ['code' => 0, 'message' => 'Aún no se abre el plazo de inscripción'];
+        }
+        if (!!date_diff($End, $Now)->invert === false) {
+            return ['code' => 0, 'message' => 'Se ha cerrado el plazo de inscripción'];
+        }
+
+        return ['code' => 1];
+    }
+
     public function count_inscriptions() : int
     {
         return inscription::inscriptions($this->evt_permalink);

@@ -1,9 +1,9 @@
 <div class="ui tiny breadcrumb">
-  <a class="section" href="/coordination">Inicio</a>
-  <i class="right chevron icon divider"></i>
-  <a class="section">{{@event->evt_name}}</a>
-  <i class="right chevron icon divider"></i>
-  <div class="active section">Listado de participantes</div>
+    <a class="section" href="/coordination">Inicio</a>
+    <i class="right chevron icon divider"></i>
+    <a class="section">{{@event->evt_name}}</a>
+    <i class="right chevron icon divider"></i>
+    <div class="active section">Listado de participantes</div>
 </div>
 <div class="ui section divider"></div>
 <div class="sixteen wide column">
@@ -15,8 +15,25 @@
         </div>
     </check>
     <h2 class="ui header">{{@event->evt_name}}
+        <button class="ui teal right floated button add">
+            Agregar participante
+        </button>
     <br /><div class="ui sub header">Listado de participantes</div>
     </h2>
+    <div class="add participant" style="display: none">
+        <h3 class="ui header">Agregar participante</h3>
+        <form class="ui form new participant">
+            <div class="field">
+                <label>Nombre de usuario</label>
+                <div class="ui icon input">
+                    <input type="text" name="person[username]" placeholder="Nombre de usuario en Wikipedia" class="wikiuser">
+                    <i class="icon"></i>
+                </div>
+            </div>
+            <button type="submit" class="ui primary button">Agregar</button>
+        </form>
+        <br />
+    </div>
     <form class="ui form" method="post" action="/coordination/{{@PARAMS.permalink}}/updateParticipants">
         <table class="ui celled table">
             <thead>

@@ -14,6 +14,14 @@ class event
             return $fat;
         }
         $fat->set('event', $Event);
+        $valid = $Event->isInscription();
+        if (!!$valid['code'] === false) {
+            $fat->set('page.text', $valid['message']);
+            $fat->set('page.content', 'event.noinscription.html');
+            echo \Template::instance()->render('layout.event.html');
+
+            return $fat;
+        }
         if (\model\inscription::inscriptions($fat->get('PARAMS.permalink')) >= $Event->evt_maxparticipants) {
             $fat->set('page.content', 'event.nomoreparticipants.html');
             echo \Template::instance()->render('layout.event.html');

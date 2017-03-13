@@ -49,8 +49,21 @@ $(function () {
                 .transition('fade');
         });
 
+    $('form.new.participant').on('submit', function (evt) {
+        evt.preventDefault();
+        if ($('input.id').length === 0) {
+            window.alert('Por favor, chequea el nombre de usuario de Wikipedia');
+            return false;
+        }
+        $('form.new.participant').off('submit').submit();
+    });
+
     $('.ui.dropdown')
         .dropdown();
+
+    $('button.add').on('click', function () {
+        $('div.add').toggle();
+    });
 
     $('.participant').on('change', function () {
         $(this).val(+$(this).is(':checked'));
