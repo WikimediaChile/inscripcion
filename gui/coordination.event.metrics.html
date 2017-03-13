@@ -49,7 +49,7 @@
 
 {{Grants/Reports/Globalmetrics/Rows
 | metric = 6. Absolute value of bytes added to or deleted from Wikimedia projects
-| achieved outcome = </ignore>{{@data.all_ns.absolute | format }} <ignore>
+| achieved outcome = </ignore>{{@data.main_ns.absolute | format }} <ignore>
 | explanation = The sum of bytes only considers the editions in Main Namespace.
 }}
 
@@ -64,16 +64,19 @@
 ! Título
 ! Artículo nuevo
 ! Bytes añadidos
+! Usuarios
 <repeat group="{{@data.list.main_ns}}" value="{{@article}}">
 |-
 | [[{{@article.title}}]]
-| {{@article.new_page ? 'Sí' : 'No'}}
-| {{@article.bytes}}
+| align="center" | {{@article.new_page ? 'Sí' : 'No'}}
+| align="right" | {{@article.bytes}}
+| {{@article.users | format_users }}
 </repeat>
 |-
 ! Total
 ! {{array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos nuevos <br />{{count(@data.list.main_ns) - array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos existentes
-! {{array_sum(array_column(@data.list.main_ns, 'bytes'))}} bytes
+! align="right" | {{array_sum(array_column(@data.list.main_ns, 'bytes'))}} bytes
+! &nbsp;
 |}
 
 </textarea>

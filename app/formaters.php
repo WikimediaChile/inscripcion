@@ -16,8 +16,19 @@ class formaters extends \Prefab
         return $DateTime->format('Y-m-d\TH:i:s');
     }
 
+    public static function listUsers(string $list) : string
+    {
+        $listUser = explode(',', $list);
+        $listUser = !is_array($listUser) ? [$listUser] : $listUser;
+
+        $array = array_map(function ($f) { return "{{u2|$f}}"; }, $listUser);
+
+        return implode(', ', $array);
+    }
+
     public static function registry()
     {
         \Template::instance()->filter('format_time', '\formaters::instance()->format_time');
+        \Template::instance()->filter('format_users', '\formaters::instance()->listUsers');
     }
 }
