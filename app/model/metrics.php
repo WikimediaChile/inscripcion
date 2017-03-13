@@ -32,10 +32,11 @@ class metrics
         return $this->contributionsNS();
     }
 
-    public function listArticles(int $ns = null) : array {
+    public function listArticles(int $ns = null) : array
+    {
         $qList = '
         select con_pagetitle title
-            , ifnull((select 1 from contribution con2 where con.con_pageid = con2.con_pageid and con_newpage = 1), 0) as new_page
+            , ifnull((select 1 from contribution con2 where con.con_pageid = con2.con_pageid and con_newpage = 1 and con_sizediff > 300), 0) as new_page
 	       , sum(abs(con_sizediff)) as bytes
            , group_concat(distinct wu_username SEPARATOR \',\') as users
            from contribution con, participants, wiki_user
@@ -47,8 +48,7 @@ class metrics
            group by con_pagetitle, new_page, wu_username
            order by 1';
 
-       return $this->db->exec($qList, [$ns, $this->permalink]);
-
+        return $this->db->exec($qList, [$ns, $this->permalink]);
     }
 
     private function typeUser(bool $newbie) : int
@@ -60,6 +60,7 @@ class metrics
             and insc_newbie = ?
             and evt_permalink = ?';
         $rData = $this->db->exec($qUsers, [(int) $newbie, $this->permalink]);
+
         return (int) $rData[0]['users'];
     }
 
