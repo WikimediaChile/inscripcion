@@ -1,0 +1,81 @@
+<div class="ui tiny breadcrumb">
+    <a class="section" href="/coordination">Inicio</a>
+    <i class="right chevron icon divider"></i>
+    <a class="section">{{@event->evt_name}}</a>
+    <i class="right chevron icon divider"></i>
+    <div class="active section">Métricas</div>
+</div>
+<div class="ui section divider"></div>
+<div class="sixteen wide column">
+    <h2 class="ui header">{{@event->evt_name}}
+    <br /><div class="ui sub header">Métricas generales</div>
+    </h2>
+    <h3 class="ui header">Global metrics</h3>
+    <textarea rows="10" cols="90">[[File:Wikipedia-logo.svg|25px]]<br />
+'''{{@event->evt_name}}'''
+<!---GLOBAL METRICS--->
+<ignore>
+{{Grants/Reports/Globalmetrics/Header}}
+
+{{Grants/Reports/Globalmetrics/Rows
+| metric = 1. # of active editors involved
+| achieved outcome = </ignore>{{@data.old_users}} <ignore>
+| explanation = See [[:wikipedia:es:Wikipedia:Encuentros/Editatón_Cultura_Trasandina_en_Mendoza|event page in Spanish Wikipedia]].
+}}
+
+{{Grants/Reports/Globalmetrics/Rows
+| metric = 2. # of new editors
+| achieved outcome = </ignore>{{@data.new_users}} <ignore>
+| explanation =
+}}
+
+{{Grants/Reports/Globalmetrics/Rows
+| metric = 3. # of individuals involved
+| achieved outcome = </ignore>{{@data.old_users + @data.new_users + 2}} <ignore>
+| explanation =
+}}
+
+{{Grants/Reports/Globalmetrics/Rows
+| metric = 4. # of new images/media added to Wikimedia articles/pages
+| achieved outcome = N/A
+| explanation =
+}}
+
+{{Grants/Reports/Globalmetrics/Rows
+| metric = 5. # of articles added or improved on Wikimedia projects
+| achieved outcome = </ignore>{{@data.main_ns.pages}} </ignore>
+| explanation = See [[:wikipedia:es:Wikipedia:Encuentros/Editatón_Cultura_Trasandina_en_Mendoza|the list in Spanish Wikipedia]].
+}}
+
+{{Grants/Reports/Globalmetrics/Rows
+| metric = 6. Absolute value of bytes added to or deleted from Wikimedia projects
+| achieved outcome = </ignore>{{@data.all_ns.absolute | format }} <ignore>
+| explanation = The sum of bytes only considers the editions in Main Namespace.
+}}
+
+<!--Leave the template that follows when you have added all of your global metrics-->
+{{Grants/Reports/Globalmetrics/Table/End}}
+</ignore>
+</textarea>
+
+<h3 class="ui header">Páginas creadas</h3>
+<textarea rows="10" cols="90">{| class="wikitable sortable"
+|-
+! Título
+! Artículo nuevo
+! Bytes añadidos
+<repeat group="{{@data.list.main_ns}}" value="{{@article}}">
+|-
+| {{@article.title}}
+| {{@article.new_page ? 'Sí' : 'No'}}
+| {{@article.bytes}}
+</repeat>
+|-
+! Total
+! {{array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos nuevos <br />
+  {{count(@data.list.main_ns) - array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos existentes
+! {{array_sum(array_column(@data.list.main_ns, 'bytes'))}} bytes
+|}
+
+</textarea>
+</div>

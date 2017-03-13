@@ -82,6 +82,19 @@ class coordination
         return $fat;
     }
 
+    public function event_metrics(\Base $fat)
+    {
+        $fat->set('event', \model\event::permalink($fat->get('PARAMS.permalink')));
+        $Metrics = new \model\metrics($fat->get('PARAMS.permalink'));
+        $fat->set('data.new_users', $Metrics->newbie());
+        $fat->set('data.old_users', $Metrics->veterean());
+        $fat->set('data.main_ns', $Metrics->main_namespace());
+        $fat->set('data.all_ns', $Metrics->all_namespaces());
+        $fat->set('data.list.main_ns', $Metrics->listArticles(0));
+        $fat->set('page.content', 'coordination.event.metrics.html');
+        echo \Template::instance()->render('coordination.layout.html');
+    }
+
     public function beforeroute(\Base $fat)
     {
         if ($fat->exists('SESSION.token') === false) {
