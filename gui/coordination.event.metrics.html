@@ -69,15 +69,14 @@
 |-
 | [[{{@article.title}}]]
 | align="center" | {{!!@article.new_page === false ? 'No' : (@article.bytes < 300 ? 'Sí*' : 'Sí')}}
-| align="right" | {{@article.bytes}}
+| align="right" | {{'{0,number,integer}', @article.bytes | format}}
 | {{@article.users | format_users }}
 </repeat>
 |-
 ! Total
 ! {{array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos nuevos <br />{{count(@data.list.main_ns) - array_sum(array_column(@data.list.main_ns, 'new_page'))}} artículos existentes
-! align="right" | {{array_sum(array_column(@data.list.main_ns, 'bytes'))}} bytes
+! align="right" | {{'{0,number,integer}', array_sum(array_column(@data.list.main_ns, 'bytes')) | format}}
 ! &nbsp;
-|}<br />
-<small>(*) Desambiguación o página muy corta (< 300 bytes) para ser considerado un artículo nuevo</small>
+|}<small>(*) Desambiguación o página muy corta (< 300 bytes) para ser considerado un artículo nuevo</small>
 </textarea>
 </div>
