@@ -12,6 +12,7 @@ $fat->route('GET /@permalink/map.jpg', '\route\event->map');
 $fat->route('GET /@permalink/subscribed', '\route\event->end');
 $fat->route('GET /remove', '\route\inscription->index');
 $fat->route('GET /remove/@rand', '\route\inscription->remove');
+$fat->route('GET /', '\route\page->index');
 
 $fat->route('GET /log.in', '\route\user->login');
 $fat->route('POST /log.in', '\route\user->process');
