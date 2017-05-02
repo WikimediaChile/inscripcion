@@ -7,31 +7,51 @@ class event
     public function render(\Base $fat)
     {
         try {
-            $Event = \model\event::permalink($fat->get('PARAMS.permalink'));
+            $Event = \model\event_proxy::getpermalink($fat->get('PARAMS.permalink'));
         } catch (\Exception $e) {
-            $fat->error(404, $e->getMessage());
+            $fat->error(500, $e->getMessage());
 
             return $fat;
         }
-        $fat->set('event', $Event);
-        $valid = $Event->isInscription();
-        if (!!$valid['code'] === false) {
-            $fat->set('page.text', $valid['message']);
-            $fat->set('page.content', 'event.noinscription.html');
+        if ($Event instanceof \model\Event) {
+            $fat->set('event', $Event);
+            $valid = $Event->isInscription();
+            if (!!$valid['code'] === false) {
+                $fat->set('page.text', $valid['message']);
+                $fat->set('page.content', 'event.noinscription.html');
+                echo \Template::instance()->render('layout.event.html');
+
+                return $fat;
+            }
+            if (\model\inscription::inscriptions($fat->get('PARAMS.permalink')) >= $Event->evt_maxparticipants) {
+                $fat->set('page.content', 'event.nomoreparticipants.html');
+                echo \Template::instance()->render('layout.event.html');
+
+                return $fat;
+            }
+
+            $fat->set('SESSION.csrf', substr(md5(rand()), 0, 16));
+            $fat->set('page.content', 'event.form.html');
             echo \Template::instance()->render('layout.event.html');
+        } elseif ($Event instanceof \model\talk) {
+            $fat->set('event', $Event);
+            $fat->set('SESSION.csrf', substr(md5(rand()), 0, 16));
+            $fat->set('page.content', 'event.form-talk.html');
+            echo \Template::instance()->render('layout.event-talk.html');
+        }
+    }
+
+    public function addTalk(\Base $fat)
+    {
+        if ($fat->get('POST.token') !== $fat->get('SESSION.csrf')) {
+            $fat->set('SESSION.error', ['code' => 0, 'message' => 'Error al enviar formulario, por favor reintente']);
+            $fat->reroute('/event/'.$fat->get('PARAMS.permalink'));
 
             return $fat;
         }
-        if (\model\inscription::inscriptions($fat->get('PARAMS.permalink')) >= $Event->evt_maxparticipants) {
-            $fat->set('page.content', 'event.nomoreparticipants.html');
-            echo \Template::instance()->render('layout.event.html');
 
-            return $fat;
-        }
-
-        $fat->set('SESSION.csrf', substr(md5(rand()), 0, 16));
-        $fat->set('page.content', 'event.form.html');
-        echo \Template::instance()->render('layout.event.html');
+        \model\talk_participant::add($fat->get('POST.person'), $fat->get('PARAMS.permalink'));
+        $fat->reroute('/'.$fat->get('PARAMS.permalink'));
     }
 
     public function addParticipant(\Base $fat)

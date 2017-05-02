@@ -1,0 +1,33 @@
+<div class="ten wide column">
+    <h2 class="ui header">Registro de charla</h2>
+    <form class="ui form" action="/{{@event->talk_permalink}}/add" method="post" id="talk">
+        <h4 class="ui dividing header">Datos Personales</h4>
+        <div class="field">
+            <label>Nombre</label>
+            <input type="text" name="person[name]" placeholder="Nombre" autocomplete="off">
+        </div>
+        <div class="field">
+            <label>Género</label>
+            <div class="field">
+                <select class="ui fluid dropdown" name="person[sex]">
+                        <option value="1">Femenino</option>
+                        <option value="2">Masculino</option>
+                        <option value="3">Otro</option>
+                        <option value="4">Prefiero no indicarlo</option>
+                    </select>
+            </div>
+        </div>
+        <div class="field">
+            <label>Correo electrónico <a class="ui mini red label">Obligatorio</a></label>
+            <input type="email" name="person[email]" placeholder="Tu correo electrónico" required="required" autocomplete="off">
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <label>Recibir más información de los eventos de Wikimedia Chile</label>
+                <input type="checkbox" name="person[morenews]" value="1" checked="checked">
+            </div>
+        </div>
+        <button type="submit" class="ui primary button" tabindex="0">Agregarme</button>
+        <input type="hidden" name="token" value="{{ @SESSION.csrf }}" />
+    </form>
+</div>
