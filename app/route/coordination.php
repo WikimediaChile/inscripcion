@@ -10,6 +10,7 @@ class coordination
 
         $fat->set('page.content', 'coordination.start.html');
         $fat->set('events.current', $Event->find(['now() between evt_startinscription and evt_endinscription']));
+        $fat->set('events.future', $Event->find(['evt_startinscription > now()']));
         echo \Template::instance()->render('coordination.layout.html');
     }
 
@@ -23,9 +24,16 @@ class coordination
         $fat->clear('SESSION.error');
     }
 
+    public function event_add(\Base $fat)
+    {
+        $fat->set('page.content', 'coordination.event.details.html');
+        echo \Template::instance()->render('coordination.layout.html');
+        $fat->clear('SESSION.error');
+    }
+
     public function event_update(\Base $fat)
     {
-        $Event = \model\event::permalink($fat->get('PARAMS.permalink'));
+        $Event = $fat->exists('PARAMS.permalink') ? \model\event::permalink($fat->get('PARAMS.permalink')) : new \model\event;
         $event = [];
         foreach ($fat->get('POST.event') as $index => $value) {
             $event['evt_'.$index] = $value;

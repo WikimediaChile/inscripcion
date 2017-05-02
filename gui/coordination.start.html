@@ -21,3 +21,26 @@
         </repeat>
     </div>
 </div>
+<div class="ten wide column">
+    <h2 class="ui header">Eventos futuros</h2>
+    <div class="ui list">
+        <repeat group="{{@events.future}}" value="{{@event}}">
+            <div class="item">
+                <div class="right floated content">
+                    <div class="ui small teal button dropdown">
+                        <div class="text">Acciones</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" href="/coordination/{{@event->evt_permalink}}">Editar evento</a>
+                            <a class="item" href="/coordination/{{@event->evt_permalink}}/list">Lista de participantes</a>
+                            <a class="item" href="/coordination/{{@event->evt_permalink}}/metrics">Métricas</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="header">{{@event->evt_name}}</div>
+                Fechas: <i>{{@event->getTime()}}</i><br /> Inscritos: {{@event->count_inscriptions()}}
+                <check if="{{@event->evt_maxparticipants}}"><small>({{@event->evt_maxparticipants - @event->count_inscriptions()}} lugares disponibles)</small></check>
+            </div>
+        </repeat>
+    </div>
+</div>

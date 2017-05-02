@@ -17,7 +17,7 @@
     <h2 class="ui header">{{@event->evt_name}}
     <br /><div class="ui sub header">Detalles del evento</div>
     </h2>
-    <form class="ui form" method="post" action="/coordination/{{@PARAMS.permalink}}/update">
+    <form class="ui form" method="post" action="{{isset(@event) ? ('/coordination/'.@PARAMS.permalink.'/update') : '/coordination/create'}}">
         <h4 class="ui dividing header">Datos del evento</h4>
         <div class="two fields">
             <div class="field">
