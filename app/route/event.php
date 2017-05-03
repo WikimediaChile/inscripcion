@@ -37,6 +37,8 @@ class event
             $fat->set('event', $Event);
             $fat->set('SESSION.csrf', substr(md5(rand()), 0, 16));
             $fat->set('page.content', 'event.form-talk.html');
+            $fat->set('page.flash', $fat->get('SESSION.flash'));
+            $fat->clear('SESSION.flash');
             echo \Template::instance()->render('layout.event-talk.html');
         }
     }
@@ -45,12 +47,13 @@ class event
     {
         if ($fat->get('POST.token') !== $fat->get('SESSION.csrf')) {
             $fat->set('SESSION.error', ['code' => 0, 'message' => 'Error al enviar formulario, por favor reintente']);
-            $fat->reroute('/event/'.$fat->get('PARAMS.permalink'));
+            $fat->reroute('/'.$fat->get('PARAMS.permalink'));
 
             return $fat;
         }
 
         \model\talk_participant::add($fat->get('POST.person'), $fat->get('PARAMS.permalink'));
+        $fat->set('SESSION.flash', 'Se añadido al listado de asistentes a la charla');
         $fat->reroute('/'.$fat->get('PARAMS.permalink'));
     }
 

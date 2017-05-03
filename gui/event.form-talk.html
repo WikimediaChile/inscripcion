@@ -1,4 +1,9 @@
-<div class="ten wide column">
+<div class="sixteen wide column">
+    <check if="{{isset(@page.flash)}}">
+    <div class="ui info message feedback">
+        {{@page.flash}}
+    </div>
+    </check>
     <h2 class="ui header">Registro de charla</h2>
     <form class="ui form" action="/{{@event->talk_permalink}}/add" method="post" id="talk">
         <h4 class="ui dividing header">Datos Personales</h4>

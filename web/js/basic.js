@@ -3,6 +3,11 @@ $, window */
 $(function () {
     'use strict';
     $('.ui.checkbox').checkbox();
+    if ($('.message.feedback').length) {
+        window.setTimeout(function () {
+            $('.message.feedback').remove();
+        }, 3000);
+    }
     $('.wikiuser').on('change', function () {
         $('input.id').remove();
         $('.wikiuser').parent('div').addClass('loading').find('.icon').removeClass('red green checkmark remove');
