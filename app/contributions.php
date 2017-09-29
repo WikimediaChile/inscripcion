@@ -95,7 +95,7 @@ class contributions
             $uccontinue = '';
             while (true) {
                 $url .= (!!$uccontinue ? '&uccontinue='.$uccontinue : '');
-                $data = file_get_contents(rawurlencode($url));
+                $data = file_get_contents($url);
                 $jData = json_decode($data);
 
                 foreach ($jData->query->usercontribs as $contrib) {
