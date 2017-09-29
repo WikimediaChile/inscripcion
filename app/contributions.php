@@ -79,34 +79,38 @@ class contributions
             return false;
         }
 
+        $participantes = array_column($rParticipants, 'part_wikiid');
+        foreach (array_chunk($participantes, 40) as $gente) {
+
         # Default: We took the 30 minutes
-        $start = is_null($Start) ? new \DateTime('now', new \DateTimeZone('UTC')) : $Start;
-        $end = is_null($End) ? new \DateTime('-30 minutes', new \DateTimeZone('UTC')) : $End;
+            $start = is_null($Start) ? new \DateTime('now', new \DateTimeZone('UTC')) : $Start;
+            $end = is_null($End) ? new \DateTime('-30 minutes', new \DateTimeZone('UTC')) : $End;
 
-        $url = 'http://es.wikipedia.org/w/api.php?action=query&format=json&list=usercontribs&uclimit=max';
-        $url .= '&ucend='.$start->format('Y-m-d\TH:i:s.000\Z');
-        $url .= '&ucstart='.$end->format('Y-m-d\TH:i:s.000\Z');
-        $url .= '&ucnamespace=0%7C2%7C4%7C102%7C100%7C104&ucprop=ids%7Ctitle%7Ctimestamp%7Csize%7Csizediff';
-        $url .= '&ucuserids='.$participants = implode('|', array_column($rParticipants, 'part_wikiid'));
+            $url = 'http://es.wikipedia.org/w/api.php?action=query&format=json&list=usercontribs&uclimit=max';
+            $url .= '&ucend='.$start->format('Y-m-d\TH:i:s.000\Z');
+            $url .= '&ucstart='.$end->format('Y-m-d\TH:i:s.000\Z');
+            $url .= '&ucnamespace=0%7C2%7C4%7C102%7C100%7C104&ucprop=ids%7Ctitle%7Ctimestamp%7Csize%7Csizediff';
+            $url .= '&ucuserids='.$participants = implode('|', array_column($rParticipants, 'part_wikiid'));
 
-        $uccontinue = '';
-        while (true) {
-            $url .= (!!$uccontinue ? '&uccontinue='.$uccontinue : '');
-            $data = file_get_contents($url);
-            $jData = json_decode($data);
+            $uccontinue = '';
+            while (true) {
+                $url .= (!!$uccontinue ? '&uccontinue='.$uccontinue : '');
+                $data = file_get_contents($url);
+                $jData = json_decode($data);
 
-            foreach ($jData->query->usercontribs as $contrib) {
-                $data = ['con_revid' => $contrib->revid, 'con_namespace' => $contrib->ns
+                foreach ($jData->query->usercontribs as $contrib) {
+                    $data = ['con_revid' => $contrib->revid, 'con_namespace' => $contrib->ns
                 , 'con_pagetitle' => $contrib->title
                 , 'con_date' => \formaters::time_from_wiki($contrib->timestamp)
                 , 'con_sizediff' => $contrib->sizediff, 'con_userid' => $contrib->userid
                 , 'con_pageid' => $contrib->pageid, 'con_newpage' => (bool) !!!$contrib->parentid, ];
-                \model\contribution::add($data);
+                    \model\contribution::add($data);
+                }
+                if (isset($jData->continue) === false) {
+                    break;
+                }
+                $uccontinue = $jData->continue->uccontinue;
             }
-            if (isset($jData->continue) === false) {
-                break;
-            }
-            $uccontinue = $jData->continue->uccontinue;
         }
 
         return true;
