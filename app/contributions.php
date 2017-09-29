@@ -60,7 +60,7 @@ class contributions
         return true;
     }
 
-    private function retrieveContributions(string $event) : bool
+    private function retrieveContributions(string $event = null) : bool
     {
         $DB = \model\main::instance();
         if (is_null($event)) {
@@ -114,7 +114,7 @@ class contributions
 
     private function allContributionsTime() : bool
     {
-        $this->retrieveContributions('mujer-2017');
+        $this->retrieveContributions('mujeres-artistas');
 
         return true;
     }
