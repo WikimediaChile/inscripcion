@@ -89,13 +89,13 @@ class contributions
             $url = 'http://es.wikipedia.org/w/api.php?action=query&format=json&list=usercontribs&uclimit=max';
             $url .= '&ucend='.$start->format('Y-m-d\TH:i:s.000\Z');
             $url .= '&ucstart='.$end->format('Y-m-d\TH:i:s.000\Z');
-            $url .= '&ucnamespace=0%7C2%7C4%7C102%7C100%7C104&ucprop=ids%7Ctitle%7Ctimestamp%7Csize%7Csizediff';
-            $url .= '&ucuserids='.$participants = implode('|', array_column($rParticipants, 'part_wikiid'));
+            $url .= '&ucnamespace=0|2|4|10|100|104&ucprop=ids|title|timestamp|size|sizediff';
+            $url .= '&ucuserids='.implode('|', $gente);
 
             $uccontinue = '';
             while (true) {
                 $url .= (!!$uccontinue ? '&uccontinue='.$uccontinue : '');
-                $data = file_get_contents($url);
+                $data = file_get_contents(rawurlencode($url));
                 $jData = json_decode($data);
 
                 foreach ($jData->query->usercontribs as $contrib) {
